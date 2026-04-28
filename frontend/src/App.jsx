@@ -177,7 +177,33 @@ function App() {
               {loadingData ? (
                 <p className="muted">Loading data...</p>
               ) : dataResponse ? (
-                <pre className="code-block">{JSON.stringify(dataResponse, null, 2)}</pre>
+                <div>
+                 <p className="muted">
+                  Role: {dataResponse.role}
+                  {dataResponse.device_id ? ` | Device ID: ${dataResponse.device_id}` : ""}
+                 </p>
+
+                 {dataResponse.data?.length > 0 ? (
+                  <table className="data-table">
+                   <thead>
+                    <tr>
+                     <th>Device ID</th>
+                     <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   {dataResponse.data.map((item, index) => (
+                    <tr key={index}>
+                     <td>{item.device_id}</td>
+                     <td>{item.value}</td>
+                    </tr>
+                   ))}
+                  </tbody>
+                 </table>
+               ) : (
+                 <p className="muted">No data available.</p>
+               )}
+              </div>
               ) : (
                 <p className="muted">No data loaded yet.</p>
               )}
